@@ -1,20 +1,99 @@
-// lab5b.1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+
+#include <cstdlib>
+
+#include <string>
+
+using namespace std;
+
+float* read_data(int& size);
+
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	float* array;
+	int size = 0;
+	array = read_data(size);
+	
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+float* read_data(int& size)
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+{
+	
+	
+	int capacity = 10; //used to store current capacity of array
+	float* array = new float[capacity];
+	float input;
+
+	cout << "Enter float numbers for array: ";
+
+	while (cin >> input)
+	{
+		if (cin.fail())
+		{
+			break;
+		}
+		array[size] = input;
+		++size;
+	}
+	cout << "Array = ";
+	
+	for (int i = 0; i < size; ++i)
+	{
+		cout << array[i] << " ";
+	}
+	cout << endl;
+	cin.clear();
+	cin.ignore();
+
+	cout << "Enter MORE float numbers for array: ";
+
+	while (cin >> input)
+	{
+		if (cin.fail())
+		{
+			break;
+		}
+		//doubling capacity of array
+		if (size >= capacity)
+
+		{
+			//copy elements to temp array
+			capacity *= 2;
+			float* temp = new float[size];
+			for (size_t i = 0; i < size; i++)
+			{
+				temp[i] = array[i];
+
+			}
+			//delete old array, allocate new array at new capacity
+			delete[] array;
+			array = new float[capacity];
+			//copy temp array to new array  
+
+			for (size_t i = 0; i < size; i++)
+			{
+				array[i] = temp[i];
+			}
+			delete[] temp;
+
+		}
+		
+		array[size] = input;
+		++size;
+	}
+	cout << "Array = ";
+	for (int i = 0; i < size; ++i)
+	{
+		cout << array[i] << " ";
+	}
+	cout << endl;
+	cin.clear();
+	cin.ignore();
+	
+
+
+	return array;  //return address of array
+	}
